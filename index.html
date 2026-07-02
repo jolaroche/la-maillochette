@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Maillochette</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+  :root{
+    --clr-cream:        #FFF7EC;
+    --clr-cream-soft:   #FFFDF9;
+    --clr-peach:        #FFD9A8;
+    --clr-coral:        #F2906B;
+    --clr-coral-dark:   #DC7350;
+    --clr-rose:         #E8909D;
+    --clr-sage:         #9FB48B;
+    --clr-sage-light:   #DCE7CF;
+    --clr-moss:         #5C7A52;
+    --clr-moss-dark:    #3F5938;
+    --clr-ink:          #4A3F35;
+    --clr-ink-soft:     #8A7E70;
+    --clr-white:        #FFFFFF;
+
+    --font-display: "Fraunces", serif;
+    --font-body: "Work Sans", sans-serif;
+
+    --radius-lg: 28px;
+    --radius-md: 18px;
+    --radius-sm: 12px;
+    --shadow-soft: 0 14px 34px rgba(92,58,35,0.10);
+    --shadow-btn: 0 8px 20px rgba(220,115,80,0.35);
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin:0;
+    background: var(--clr-cream);
+    color: var(--clr-ink);
+    font-family: var(--font-body);
+    line-height: 1.55;
+  }
+  img{ max-width:100%; display:block; }
+  ul{ margin:0; padding:0; }
+  a{ color: var(--clr-coral-dark); }
+
+  .wrap{
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ============================================================
+     HERO / EN-TÊTE
+     ============================================================ */
+  .hero{
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(180deg, var(--clr-peach) 0%, var(--clr-rose) 60%, var(--clr-cream) 100%);
+  }
+  .hero-content{
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 56px 24px 170px;
+  }
+
+  .logo-wrap{
+    width: 350px;
+    height: 350px;
+    margin: 0 auto 10px;
+    border-radius: 50%;
+    box-shadow: var(--shadow-soft);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    font-size: 2.2rem;
+  }
+  .logo-wrap img{ width:100%; height:100%; object-fit: cover; }
+  .logo-fallback{ display:none; }
+
+  .eyebrow{
+    text-transform: uppercase;
+    letter-spacing: .16em;
+    font-size: .78rem;
+    font-weight: 600;
+    color: var(--clr-moss-dark);
+    margin: 0 0 10px;
+  }
+
+  .hero h1{
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(1.25rem, 2vw, 2rem);
+    color: var(--clr-moss-dark);
+    margin: 0 0 14px;
+  }
+  .hero h1 em{
+    font-style: italic;
+    font-weight: 500;
+    color: var(--clr-coral-dark);
+  }
+
+  .hero p.tagline{
+    max-width: 480px;
+    margin: 0 auto 20px;
+    color: var(--clr-ink);
+    font-size: 1.05rem;
+  }
+
+  .chip-row{
+    display:flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 8px;
+  }
+  .chip{
+    background: rgba(255,255,255,0.75);
+    backdrop-filter: blur(2px);
+    border-radius: 999px;
+    padding: 8px 18px;
+    font-size: .9rem;
+    font-weight: 600;
+    color: var(--clr-moss-dark);
+    box-shadow: 0 4px 14px rgba(92,58,35,0.06);
+  }
+
+  /* illustration colline / soleil couchant — la signature visuelle du site */
+  .hero-illustration{
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: auto;
+    z-index: 1;
+    line-height: 0;
+  }
+
+  /* ============================================================
+     NAVIGATION PAR ONGLETS
+     ============================================================ */
+  .tabnav{
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin: -28px auto 36px;
+    padding: 0 16px;
+    position: relative;
+    z-index: 3;
+  }
+  .tab-btn{
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: .92rem;
+    padding: .7rem 1.25rem;
+    border-radius: 999px;
+    border: none;
+    background: var(--clr-white);
+    color: var(--clr-moss-dark);
+    box-shadow: var(--shadow-soft);
+    cursor: pointer;
+    transition: transform .15s ease, box-shadow .15s ease, background .15s ease, color .15s ease;
+  }
+  .tab-btn:hover{ transform: translateY(-2px); }
+  .tab-btn:focus-visible{ outline: 3px solid var(--clr-moss); outline-offset: 2px; }
+  .tab-btn.active{
+    background: linear-gradient(135deg, var(--clr-coral), var(--clr-coral-dark));
+    color: var(--clr-white);
+    box-shadow: var(--shadow-btn);
+  }
+
+  /* ============================================================
+     PANNEAUX DE CONTENU
+     ============================================================ */
+  main{ padding-bottom: 70px; }
+  .panel{ display:none; }
+  .panel.active{ display:block; animation: fadeIn .35s ease; }
+  @keyframes fadeIn{ from{ opacity:0; transform: translateY(6px); } to{ opacity:1; transform: translateY(0); } }
+
+  .card{
+    background: var(--clr-white);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    box-shadow: var(--shadow-soft);
+    margin-bottom: 20px;
+  }
+  .card h2{
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.6rem;
+    color: var(--clr-moss-dark);
+    margin: 0 0 6px;
+  }
+  .card .sub{ color: var(--clr-ink-soft); margin: 0 0 22px; font-size: .96rem; }
+
+  .callout{
+    background: var(--clr-sage-light);
+    border-radius: var(--radius-md);
+    padding: 14px 18px;
+    display:flex;
+    gap: 12px;
+    align-items: flex-start;
+    font-size: .94rem;
+    color: var(--clr-moss-dark);
+    margin-bottom: 18px;
+  }
+  .callout .icon{ font-size: 1.2rem; line-height:1; }
+
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: .98rem;
+    text-decoration: none;
+    padding: .85rem 1.6rem;
+    border-radius: 999px;
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .btn:hover{ transform: translateY(-2px); }
+  .btn-primary{
+    background: linear-gradient(135deg, var(--clr-coral), var(--clr-coral-dark));
+    color: var(--clr-white);
+    box-shadow: var(--shadow-btn);
+  }
+  .btn-outline{
+    background: var(--clr-white);
+    color: var(--clr-moss-dark);
+    border: 2px solid var(--clr-sage);
+  }
+  .link-note{ font-size:.82rem; color: var(--clr-ink-soft); margin-top:8px; }
+
+  /* --- Accès --- */
+  .info-grid{ display:grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 4px; }
+  .info-item{ display:flex; gap:12px; align-items:flex-start; }
+  .info-item .icon{ font-size: 1.4rem; }
+  .info-item h3{ margin:0 0 4px; font-size: 1rem; color: var(--clr-moss-dark); }
+  .info-item p{ margin:0; font-size: .92rem; color: var(--clr-ink-soft); }
+
+  /* --- Programme --- */
+  .day-block{ margin-bottom: 28px; }
+  .day-block:last-child{ margin-bottom: 0; }
+  .day-title{
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    color: var(--clr-moss-dark);
+    margin: 0 0 14px;
+    display:flex;
+    align-items:baseline;
+    gap:10px;
+  }
+  .day-title .day-date{ font-family: var(--font-body); font-size:.82rem; color: var(--clr-ink-soft); font-weight:500; }
+
+  .timeline{ list-style:none; position:relative; padding-left: 28px; }
+  .timeline::before{
+    content:"";
+    position:absolute; left:6px; top:6px; bottom:6px;
+    width:2px; background: var(--clr-sage-light);
+  }
+  .timeline li{ position:relative; padding-bottom: 18px; }
+  .timeline li:last-child{ padding-bottom:0; }
+  .timeline li::before{
+    content:"";
+    position:absolute; left:-28px; top:4px;
+    width:12px; height:12px; border-radius:50%;
+    background: var(--accent, var(--clr-coral));
+    border: 2px solid var(--clr-white);
+    box-shadow: 0 0 0 2px var(--accent, var(--clr-coral));
+  }
+  .timeline .time{
+    display:inline-block;
+    font-weight:700;
+    color: var(--accent, var(--clr-coral-dark));
+    font-size:.85rem;
+    margin-bottom: 2px;
+  }
+  .timeline strong{ display:block; font-size:.98rem; color: var(--clr-ink); }
+  .timeline p{ margin:2px 0 0; font-size:.88rem; color: var(--clr-ink-soft); }
+
+  /* ⭐ Encadré "événement majeur" — ajoute class="event-marquant" sur un <li> du programme */
+  .timeline li.event-marquant{
+    background: var(--clr-peach);
+    border: 2px solid var(--clr-coral);
+    border-radius: var(--radius-sm);
+    padding: 14px 16px 16px;
+    margin-bottom: 22px;
+  }
+  .timeline li.event-marquant::after{
+    content: "⭐ Moment fort";
+    position: absolute;
+    top: -11px;
+    right: 12px;
+    background: var(--clr-coral-dark);
+    color: var(--clr-white);
+    font-size: .68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    padding: 3px 10px;
+    border-radius: 999px;
+    box-shadow: 0 3px 8px rgba(220,115,80,.35);
+  }
+  .timeline li.event-marquant .time{ color: var(--clr-coral-dark); }
+
+
+  /* --- Quoi apporter --- */
+  .bring-grid{ display:grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .bring-col h3{ font-size:1rem; color: var(--clr-moss-dark); margin: 0 0 12px; }
+  .checklist{ list-style:none; display:flex; flex-direction:column; gap:10px; }
+  .checklist li{ display:flex; align-items:flex-start; gap:10px; font-size:.94rem; }
+  .checklist input[type="checkbox"]{ margin-top:3px; width:17px; height:17px; accent-color: var(--clr-moss); flex-shrink:0; }
+  .checklist label{ cursor:pointer; }
+  .checklist input:checked + label{ text-decoration: line-through; color: var(--clr-ink-soft); }
+
+  /* --- Bon à savoir --- */
+  .faq-grid{ display:grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .faq-card{
+    background: var(--clr-cream-soft);
+    border: 1px solid var(--clr-sage-light);
+    border-radius: var(--radius-md);
+    padding: 18px;
+  }
+  .faq-card .icon{ font-size:1.5rem; margin-bottom:8px; display:block; }
+  .faq-card h3{ margin:0 0 6px; font-size:.98rem; color: var(--clr-moss-dark); }
+  .faq-card p{ margin:0; font-size:.88rem; color: var(--clr-ink-soft); }
+
+  /* ============================================================
+     FOOTER
+     ============================================================ */
+  footer{
+    position: relative;
+    padding-top: 60px;
+  }
+  .footer-illustration{ width:100%; line-height:0; transform: scaleY(-1); opacity:.7; }
+  .footer-content{
+    background: var(--clr-sage-light);
+    text-align:center;
+    padding: 26px 24px 34px;
+    font-size:.88rem;
+    color: var(--clr-moss-dark);
+  }
+
+  /* ============================================================
+     RESPONSIVE
+     ============================================================ */
+  @media (max-width: 640px){
+    .info-grid, .bring-grid, .faq-grid{ grid-template-columns: 1fr; }
+    .hero-content{ padding: 44px 18px 140px; }
+    .card{ padding: 1.4rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-content">
+
+    <p class="eyebrow">Vous êtes invité·e à</p>
+
+    <div class="logo-wrap">
+      <img src="Illustration_sans_titre(1).png" alt="Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="logo-fallback" style="display:flex;"></div>
+    </div>
+
+
+    <h1>édition <em>Pacs</em></h1>
+
+    <div class="chip-row">
+      <span class="chip">📅 28 → 30 août 2026</span>
+      <span class="chip">📍 La Neuveville-sous-châtenois</span>
+      <span class="chip" id="countdown-chip">⏳ ...</span>
+    </div>
+  </div>
+
+  <div class="hero-illustration">
+    <svg viewBox="0 0 1200 260" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="width:100%; height:160px; display:block;">
+      <defs>
+        <radialGradient id="sunGrad" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#FFE8C2"/>
+          <stop offset="55%" stop-color="#F2906B"/>
+          <stop offset="100%" stop-color="#DC7350"/>
+        </radialGradient>
+      </defs>
+      <circle cx="600" cy="150" r="62" fill="url(#sunGrad)"/>
+      <path d="M0,170 C150,130 350,190 600,150 C850,110 1050,180 1200,140 L1200,260 L0,260 Z" fill="#9FB48B" opacity="0.85"/>
+      <path d="M0,205 C200,170 420,215 620,190 C830,165 1010,210 1200,185 L1200,260 L0,260 Z" fill="#759B65"/>
+      <path d="M0,235 C250,210 460,245 660,225 C900,200 1060,240 1200,215 L1200,260 L0,260 Z" fill="#3F5938"/>
+    </svg>
+  </div>
+</header>
+
+<nav class="tabnav" role="tablist" aria-label="Sections du site">
+  <button class="tab-btn active" data-target="acces" role="tab" aria-selected="true">📍 Accès</button>
+  <button class="tab-btn" data-target="programme" role="tab" aria-selected="false">🗓️ Programme</button>
+  <button class="tab-btn" data-target="rsvp" role="tab" aria-selected="false">✅ Confirmer ma venue</button>
+  <button class="tab-btn" data-target="apporter" role="tab" aria-selected="false">🎒 Quoi apporter</button>
+  <button class="tab-btn" data-target="cagnotte" role="tab" aria-selected="false">💛 Cagnotte</button>
+  <button class="tab-btn" data-target="savoir" role="tab" aria-selected="false">ℹ️ Bon à savoir</button>
+</nav>
+
+<main class="wrap">
+
+  <!-- ============== ACCÈS ============== -->
+  <section id="acces" class="panel active" role="tabpanel">
+    <div class="card">
+      <h2>Comment venir</h2>
+      <p class="sub">Toutes les infos pour arriver sans encombre.</p>
+
+      <div class="callout">
+        <span class="icon">📍</span>
+        <div><strong>Adresse :</strong> 312 Rue de la Halle, La Neuveville-sous-châtenois, 88170</div>
+      </div>
+
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="icon">🚗</span>
+          <div>
+            <h3>En voiture</h3>
+            <p>A31 - Sortie Châtenois, parking disponible sur place</p>
+          </div>
+        </div>
+        <div class="info-item">
+          <span class="icon">🚆</span>
+          <div>
+            <h3>En train</h3>
+            <p>Gare de Neufchâteau - 88300</p>
+          </div>
+        </div>
+        <div class="info-item">
+          <span class="icon">🏕️</span>
+          <div>
+            <h3>Dormir sur place</h3>
+            <p>Des places de camping sont disponibles sur place. Quelques lits sont également disponibles dans la maison (sous réserve de place disponible)</p>
+          </div>
+        </div>
+        <div class="info-item">
+          <span class="icon">🗺️</span>
+          <div>
+            <h3>Sur la carte</h3>
+            <p><a href="https://maps.app.goo.gl/DrHdji7pukjvBESm6" target="_blank" rel="noopener">Ouvrir dans Google Maps →</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== PROGRAMME ============== -->
+  <section id="programme" class="panel" role="tabpanel">
+    <div class="card">
+      <h2>Le programme</h2>
+      <p class="sub">L'événement commence officiellement le samedi 29 août à 17h00, il est toutefois possible de venir plus tôt si vous le souhaitez.</p>
+
+      <div class="day-block" style="--accent: var(--clr-rose);">
+        <h3 class="day-title">🌇 Vendredi <span class="day-date">28 août</span></h3>
+        <ul class="timeline">
+          <li><span class="time">16h00</span><strong>Arrivées anticipées</strong><p>Installation tranquille, on mettra en place les décorations.</p></li>
+          <li><span class="time">20h00</span><strong>Apéro & dîner libre</strong><p>A aviser</p></li>
+          <li><span class="time">21h00</span><strong>Cinéma Plein-air</strong><p>Film à déterminer (peut-être La La Land)</p></li>
+        </ul>
+      </div>
+
+      <div class="day-block" style="--accent: var(--clr-coral);">
+        <h3 class="day-title">☀️ Samedi <span class="day-date">29 août</span></h3>
+        <ul class="timeline">
+          <li><span class="time">09h00</span><strong>Petit-déjeuner</strong><p>Café, thé, viennoiseries — à votre rythme.</p></li>
+          <li><span class="time">10h00</span><strong>Activités / jeux en extérieur + derniers préparatifs si nécessaires</strong><p>À voir : pétanque, balade, jeux de société...</p></li>
+          <li><span class="time">12h00</span><strong>Déjeuner</strong></li>
+          <li><span class="time">15h00</span><strong>Chasse au trésor</strong><p>Prévoyez des chaussures de marche - lots à gagner pour les plus rapides !</p></li>
+          <li><span class="time">16h30</span><strong>Cérémonie de remise des prix</strong></li>
+          <li><span class="time">17h00</span><strong>Arrivée des invités / lancement de l'apéro</strong></li>
+          <li class="event-marquant"><span class="time">17h30</span><strong>Cérémonie de lancement officiel de La Maillochette</strong><p>Petit discours de lancement de la part de vos organisateur.ice.s préféré.e.s : Apo & Joé.</p></li>
+          <li class="event-marquant"><span class="time">19h00</span><strong>Concerts</strong><p>à définir</p></li>
+          <li class="event-marquant"><span class="time">20h00</span><strong>Animation surprise</strong><p>mystère...</p></li>
+          <li><span class="time">20h20</span><strong>Scène libre, musiques, barbecue</strong><p><em>c'est la fête</em> (pensez à installer vos tentes tant qu'il fait jour)</p></li>
+          <li><span class="time">22h30</span><strong>Feu de camp, marshmallow & musique au niveau du camping</strong></li>
+        </ul>
+      </div>
+
+      <div class="day-block" style="--accent: var(--clr-moss);">
+        <h3 class="day-title">🌱 Dimanche <span class="day-date">30 août</span></h3>
+        <ul class="timeline">
+          <li><span class="time">10h00</span><strong>Tournoi de pétanque</strong><p>L'horaire pourra varier en fonction du temps et des motivé.e.s.</p></li>
+          <li><span class="time">12h00</span><strong>Rangement</strong><p>Un coup de main pour tout remettre en ordre est toujours apprécié 🙏</p></li>
+          <li><span class="time">14h00</span><strong>Rien de prévu</strong><p>(mais vous pouvez rester et profiter de l'ambiance !)</p></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== CONFIRMER MA VENUE ============== -->
+  <section id="rsvp" class="panel" role="tabpanel">
+    <div class="card">
+      <h2>Confirmer ma venue</h2>
+      <p class="sub">Pour mieux s'organiser (repas, couchage...), merci de répondre via le formulaire.</p>
+
+      <div class="callout">
+        <span class="icon">⏳</span>
+        <div>Merci de répondre avant le <strong>30 juillet</strong>. Pense à indiquer dans le formulaire si tu restes dormir et si tu as des allergies / régimes alimentaires.</div>
+      </div>
+
+      <a class="btn btn-primary" href="https://forms.gle/REMPLACE-PAR-TON-LIEN-GOOGLE-FORM" target="_blank" rel="noopener">✅ Je remplis le formulaire</a>
+      <p class="sub" style="margin-top: 12px;">Autre possibilité : répondre par sms / appel. Nous avons besoin de savoir quand vous venez, si vous avez des restrictions alimentaires et si vous avez besoin d'hébergement / matériel de camping.</p>
+      <p class="link-note">Le bouton ouvre un Google Form — remplace le lien dans le code (cherche "REMPLACE").</p>
+    </div>
+  </section>
+
+  <!-- ============== QUOI APPORTER ============== -->
+  <section id="apporter" class="panel" role="tabpanel">
+    <div class="card">
+      <h2>Quoi apporter</h2>
+      <p class="sub">On s'occupe du principal, voici ce qui aide si tu peux l'apporter.</p>
+
+      <div class="bring-grid">
+        <div class="bring-col">
+          <h3>🧺 On s'occupe de</h3>
+          <ul class="checklist">
+            <li>- Boissons principales</label></li>
+            <li>- Barbecue & charbon</label></li>
+            <li>- Vaisselle & gobelets réutilisables</label></li>
+            <li>- Les repas</label></li>
+          </ul>
+        </div>
+        <div class="bring-col">
+          <h3>🎒 Pense à prendre</h3>
+          <ul class="checklist">
+            <li><input type="checkbox" id="b1"><label for="b1">Tente / sac de couchage si tu restes dormir</label></li>
+            <li><input type="checkbox" id="b2"><label for="b2">Batterie externe</label></li>
+            <li><input type="checkbox" id="b3"><label for="b3">Lampe de poche</label></li>
+            <li><input type="checkbox" id="b4"><label for="b4">Serviettes de bain</label></li>
+            <li><input type="checkbox" id="b5"><label for="b5">Des trucs à grignoter si tu le souhaites</label></li>
+            <li><input type="checkbox" id="b6"><label for="b6">Tes fesses ☀️</label></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== CAGNOTTE ============== -->
+  <section id="cagnotte" class="panel" role="tabpanel">
+    <div class="card">
+      <h2>Participer aux frais</h2>
+
+      <a class="btn btn-primary" href="https://www.leetchi.com/c/REMPLACE-PAR-TON-LIEN-CAGNOTTE" target="_blank" rel="noopener">💛 Participer à la cagnotte</a>
+      <p class="link-note">Remplace ce lien par celui de ton pot commun (Leetchi, Lydia, PayPal...).</p>
+
+      <div class="callout" style="margin-top:18px;">
+        <span class="icon">🌻</span>
+        <div>Dans l'idée, nous prévoyons dans notre budget environ 20€ par personne, mais nous nous adapterons en fonction des contributions. Si tu préfères ramener quelque chose plutôt qu'une contribution, c'est aussi possible, dis-le-nous simplement !</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== BON À SAVOIR ============== -->
+  <section id="savoir" class="panel" role="tabpanel">
+    <div class="card">
+      <h2>Bon à savoir</h2>
+      <p class="sub">Quelques petites infos en plus.</p>
+
+      <div class="faq-grid">
+        <div class="faq-card">
+          <span class="icon">☔</span>
+          <h3>Météo & plan B</h3>
+          <p>En cas de pluie, repli possible sous la grange + installation de bâches, MAIS BON a priori il fera beau !!</p>
+        </div>
+        <div class="faq-card">
+          <span class="icon">👕</span>
+          <h3>Tenue</h3>
+          <p>Décontractée et confortable. Prévois de quoi te changer si jamais. Pensez à prendre une serviette de bain pour la douche.</p>
+        </div>
+        <div class="faq-card">
+          <span class="icon">🚗</span>
+          <h3>Covoiturage</h3>
+          <p>Besoin d'une place ou tu en as une à proposer ? Passe par [le groupe WhatsApp / lien à ajouter].</p>
+        </div>
+        <div class="faq-card">
+          <span class="icon">📞</span>
+          <h3>Contact</h3>
+          <p>Une question de dernière minute ? Joins-nous sur [lien vers le groupe WhatsApp / autre moyen de contact].</p>
+        </div>
+        <div class="faq-card">
+          <span class="icon">🎵</span>
+          <h3>Playlist participative</h3>
+          <!-- ✏️ À MODIFIER -->
+          <p>Ajoute tes sons préférés à <a href="#" target="_blank" rel="noopener">[lien playlist]</a>.</p>
+        </div>
+        <div class="faq-card">
+          <span class="icon">📸</span>
+          <h3>Photos & souvenirs</h3>
+          <p>On lancera un événement sur l'application POV, préinstallez avant l'événement et on vous expliquera tout ce qu'il faut savoir !</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="footer-illustration">
+    <svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="width:100%; height:70px; display:block;">
+      <path d="M0,60 C200,30 420,75 620,55 C830,35 1010,70 1200,50 L1200,120 L0,120 Z" fill="#9FB48B"/>
+    </svg>
+  </div>
+  <div class="footer-content">
+    Avec hâte de vous voir 🌅 — Apo & Joé
+  </div>
+</footer>
+
+<script>
+  // --- Navigation par onglets ---
+  const tabs = document.querySelectorAll('.tab-btn');
+  const panels = document.querySelectorAll('.panel');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
+      panels.forEach(p => p.classList.remove('active'));
+
+      tab.classList.add('active');
+      tab.setAttribute('aria-selected','true');
+      document.getElementById(tab.dataset.target).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+
+  // --- Compte à rebours ---
+  // ✏️ À MODIFIER : mets la date/heure réelle de début de l'événement
+  const eventDate = new Date('2026-08-29T17:00:00');
+  const chip = document.getElementById('countdown-chip');
+
+  function updateCountdown(){
+    const now = new Date();
+    const diffMs = eventDate - now;
+    const diffDays = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
+
+    if (diffMs < 0) {
+      chip.textContent = '🎉 C\'est le week-end !';
+    } else if (diffDays === 0) {
+      chip.textContent = '⏳ C\'est aujourd\'hui !';
+    } else if (diffDays === 1) {
+      chip.textContent = '⏳ Plus qu\'1 jour !';
+    } else {
+      chip.textContent = `⏳ Plus que ${diffDays} jours !`;
+    }
+  }
+  updateCountdown();
+</script>
+
+</body>
+</html>
