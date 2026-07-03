@@ -369,7 +369,7 @@
     <p class="eyebrow">Vous êtes invité·e à</p>
 
     <div class="logo-wrap">
-      <img src="image/logo.png" alt="LogoM" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <img src="image/logo.png" alt="Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
       <div class="logo-fallback" style="display:flex;"></div>
     </div>
 
@@ -628,7 +628,6 @@
       tab.classList.add('active');
       tab.setAttribute('aria-selected','true');
       document.getElementById(tab.dataset.target).classList.add('active');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   });
 
